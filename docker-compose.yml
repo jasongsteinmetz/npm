@@ -9,8 +9,8 @@ services:
       - '81:81'
      # - '443:443'
     volumes:
-      - ./data:/data
-      - proxy_certbot_conf:/etc/letsencrypt
+      - npm_data:/data
+      - npm_certs:/etc/letsencrypt
 
   cloudflare-ddns:
     image: timothyjmiller/cloudflare-ddns:latest
@@ -30,7 +30,7 @@ networks:
     external: true
 
 volumes:
-  proxy_certbot_www:
+  npm_certs:
     external: true
-  proxy_certbot_conf:
+  npm_data:
     external: true
