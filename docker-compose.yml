@@ -13,7 +13,6 @@ services:
       - proxy_certbot_conf:/etc/letsencrypt
 
   cloudflare-ddns:
-    container_name: cloudflare-ddns
     image: timothyjmiller/cloudflare-ddns:latest
     security_opt:
       - no-new-privileges:true
