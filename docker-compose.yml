@@ -2,8 +2,6 @@ services:
   app:
     image: 'jc21/nginx-proxy-manager:latest'
     restart: unless-stopped
-    networks:
-      - proxy
     ports:
      # - '80:80'
       - '81:81'
@@ -16,8 +14,6 @@ services:
     image: timothyjmiller/cloudflare-ddns:latest
     security_opt:
       - no-new-privileges:true
-    networks:
-      - proxy
     environment:
       - PUID=1000
       - PGID=1000
@@ -26,8 +22,9 @@ services:
     restart: unless-stopped
 
 networks:
-  proxy:
+  default:
     external: true
+    name: proxy
 
 volumes:
   npm_certs:
