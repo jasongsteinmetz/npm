@@ -1,7 +1,15 @@
 services:
-  app:
-    image: 'jc21/nginx-proxy-manager:latest'
-    restart: unless-stopped
+  npmplus:
+    container_name: npmplus
+    image: docker.io/zoeyvid/npmplus:latest # or ghcr.io/zoeyvid/npmplus:latest
+    restart: always
+    network_mode: host
+    volumes:
+      - npm_data:/data
+      - npm_certs:/etc/letsencrypt
+    environment:
+      - "TZ=America/New_York"
+      - "ACME_EMAIL=admin@streametz.com"
     ports:
       - '80:80'
       - '81:81'
@@ -10,7 +18,28 @@ services:
       - npm_data:/data
       - npm_certs:/etc/letsencrypt
 
+  crowdsec:
+    container_name: crowdsec
+    image: docker.io/crowdsecurity/crowdsec:latest
+    restart: always
+    ports:
+      - "127.0.0.1:7422:7422"
+      - "127.0.0.1:8080:8080"
+    environment:
+      - "TZ=America/New_York"
+      - "USE_WAL=true"
+      - "COLLECTIONS=ZoeyVid/npmplus"
+    volumes:
+      - crowdsec_conf:/etc/crowdsec
+      - crowdsec_data:/var/lib/crowdsec/data"
+      - type: volume
+        source: npm_data
+        target: /opt/npmplus/nginx:ro
+        volume:
+          subpath: nginx
+
   cloudflare-ddns:
+    container_name: cloudflare-ddns
     image: timothyjmiller/cloudflare-ddns:latest
     security_opt:
       - no-new-privileges:true
