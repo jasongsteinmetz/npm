@@ -3,7 +3,6 @@ services:
     container_name: npmplus
     image: docker.io/zoeyvid/npmplus:latest # or ghcr.io/zoeyvid/npmplus:latest
     restart: always
-    network_mode: host
     volumes:
       - npm_data:/data
       - npm_certs:/etc/letsencrypt
