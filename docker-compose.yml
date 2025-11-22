@@ -57,3 +57,7 @@ volumes:
     external: true
   npm_data:
     external: true
+  crowdsec_conf:
+    external: true
+  crowdsec_data:
+    external: true
