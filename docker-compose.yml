@@ -7,8 +7,8 @@ services:
       - npm_data:/data
       - npm_certs:/etc/letsencrypt
     environment:
-      - "TZ=America/New_York"
-      - "ACME_EMAIL=admin@streametz.com"
+      - TZ=America/New_York
+      - ACME_EMAIL=admin@streametz.com
     ports:
       - '80:80'
       - '81:81'
@@ -19,15 +19,15 @@ services:
     image: docker.io/crowdsecurity/crowdsec:latest
     restart: always
     ports:
-      - "127.0.0.1:7422:7422"
-      - "127.0.0.1:8080:8080"
+      - '127.0.0.1:7422:7422'
+      - '127.0.0.1:8080:8080'
     environment:
-      - "TZ=America/New_York"
-      - "USE_WAL=true"
-      - "COLLECTIONS=ZoeyVid/npmplus"
+      - TZ=America/New_York
+      - USE_WAL=true
+      - COLLECTIONS=ZoeyVid/npmplus
     volumes:
       - crowdsec_conf:/etc/crowdsec
-      - crowdsec_data:/var/lib/crowdsec/data"
+      - crowdsec_data:/var/lib/crowdsec/data
       - type: volume
         source: npm_data
         target: /opt/npmplus/nginx:ro
