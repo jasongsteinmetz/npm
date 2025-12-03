@@ -31,9 +31,10 @@ services:
       - crowdsec_data:/var/lib/crowdsec/data
       - type: volume
         source: npm_data
-        target: /opt/npmplus/nginx:ro
+        target: /opt/npmplus/nginx
         volume:
           subpath: nginx
+        read_only: true
 
   cloudflare-ddns:
     container_name: cloudflare-ddns
