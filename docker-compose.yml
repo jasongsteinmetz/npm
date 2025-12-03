@@ -19,10 +19,6 @@ services:
     container_name: crowdsec
     image: docker.io/crowdsecurity/crowdsec:latest
     restart: always
-    environment:
-      - TZ=America/New_York
-      - USE_WAL=true
-      - COLLECTIONS=ZoeyVid/npmplus
     volumes:
       - crowdsec_conf:/etc/crowdsec
       - crowdsec_data:/var/lib/crowdsec/data
@@ -32,6 +28,13 @@ services:
         volume:
           subpath: nginx
         read_only: true
+    environment:
+      - TZ=America/New_York
+      - USE_WAL=true
+      - COLLECTIONS=ZoeyVid/npmplus
+    ports:
+      - "127.0.0.1:8081:8080"
+      - "127.0.0.1:7422:7422"
 
   cloudflare-ddns:
     container_name: cloudflare-ddns
