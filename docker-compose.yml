@@ -13,6 +13,11 @@ services:
       - '80:80'
       - '81:81'
       - '443:443'
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "5"
+        max-size: "15m"
 
   crowdsec:
     container_name: crowdsec
