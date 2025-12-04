@@ -57,6 +57,7 @@ services:
       - GEOIPUPDATE_LICENSE_KEY=${GEOIP_LICENSE_KEY}
       - GEOIPUPDATE_EDITION_IDS=GeoLite2-City GeoLite2-ASN GeoLite2-Country
       - GEOIPUPDATE_FREQUENCY=24 # Check for updates every 24 hours
+      - TZ=America/New_York
     volumes:
       - geoip_data:/usr/share/GeoIP
 
