@@ -32,7 +32,7 @@ services:
 
   crowdsec:
     container_name: crowdsec
-    image: docker.io/crowdsecurity/crowdsec:v1-debian
+    image: docker.io/crowdsecurity/crowdsec:latest
     restart: always
     deploy:
       resources:
