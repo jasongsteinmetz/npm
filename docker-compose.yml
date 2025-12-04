@@ -24,6 +24,7 @@ services:
       - crowdsec_conf:/etc/crowdsec
       - crowdsec_data:/var/lib/crowdsec/data
       - geoip_data:/var/lib/crowdsec/data/geoip
+      - /var/run/docker.sock:/var/run/docker.sock:ro
       - type: volume
         source: npm_data
         target: /opt/npmplus/nginx
@@ -33,7 +34,7 @@ services:
     environment:
       - TZ=America/New_York
       - USE_WAL=true
-      - COLLECTIONS=ZoeyVid/npmplus crowdsecurity/appsec-virtual-patching
+      - COLLECTIONS=ZoeyVid/npmplus crowdsecurity/appsec-virtual-patching crowdsecurity/appsec-generic-rules crowdsecurity/http-cve gauth-fr/immich crowdsecurity/nextcloud Dominic-Wagner/vaultwarden corvese/apache-guacamole LePresidente/overseerr
 
   cloudflare-ddns:
     container_name: cloudflare-ddns
