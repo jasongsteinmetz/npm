@@ -1,8 +1,17 @@
 services:
   npmplus:
     container_name: npmplus
-    image: docker.io/zoeyvid/npmplus:latest # or ghcr.io/zoeyvid/npmplus:latest
+    image: docker.io/zoeyvid/npmplus:latest
     restart: always
+    deploy:
+      resources:
+        limits:
+          memory: 4G
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "5"
     volumes:
       - npm_data:/data
       - npm_certs:/etc/letsencrypt
@@ -15,11 +24,25 @@ services:
       - '80:80'
       - '81:81'
       - '443:443'
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:80"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   crowdsec:
     container_name: crowdsec
-    image: docker.io/crowdsecurity/crowdsec:latest
+    image: docker.io/crowdsecurity/crowdsec:v1-debian
     restart: always
+    deploy:
+      resources:
+        limits:
+          memory: 4G
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "5"
     volumes:
       - crowdsec_conf:/etc/crowdsec
       - crowdsec_data:/var/lib/crowdsec/data
@@ -34,13 +57,23 @@ services:
     environment:
       - TZ=America/New_York
       - USE_WAL=true
-      - COLLECTIONS=ZoeyVid/npmplus crowdsecurity/appsec-virtual-patching crowdsecurity/appsec-generic-rules crowdsecurity/http-cve gauth-fr/immich crowdsecurity/nextcloud Dominic-Wagner/vaultwarden corvese/apache-guacamole LePresidente/overseerr
+      - COLLECTIONS=ZoeyVid/npmplus crowdsecurity/appsec-virtual-patching crowdsecurity/appsec-generic-rules crowdsecurity/http-cve crowdsecurity/whitelist-good-actors gauth-fr/immich crowdsecurity/nextcloud Dominic-Wagner/vaultwarden corvese/apache-guacamole LePresidente/overseerr
+    healthcheck:
+      test: ["CMD", "cscli", "lapi", "status"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   cloudflare-ddns:
     container_name: cloudflare-ddns
     image: timothyjmiller/cloudflare-ddns:latest
     security_opt:
       - no-new-privileges:true
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
     environment:
       - PUID=1000
       - PGID=1000
@@ -49,14 +82,19 @@ services:
     restart: unless-stopped
 
   geoipupdate:
-    image: ghcr.io/maxmind/geoipupdate:latest
+    image: ghcr.io/maxmind/geoipupdate:v7.0
     container_name: geoipupdate
     restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
     environment:
       - GEOIPUPDATE_ACCOUNT_ID=${GEOIP_ACCOUNT_ID}
       - GEOIPUPDATE_LICENSE_KEY=${GEOIP_LICENSE_KEY}
       - GEOIPUPDATE_EDITION_IDS=GeoLite2-City GeoLite2-ASN GeoLite2-Country
-      - GEOIPUPDATE_FREQUENCY=24 # Check for updates every 24 hours
+      - GEOIPUPDATE_FREQUENCY=24
       - TZ=America/New_York
     volumes:
       - geoip_data:/usr/share/GeoIP
