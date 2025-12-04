@@ -6,6 +6,7 @@ services:
     volumes:
       - npm_data:/data
       - npm_certs:/etc/letsencrypt
+      - geoip_data:/data/geoip
     environment:
       - TZ=America/New_York
       - ACME_EMAIL=admin@streametz.com
@@ -22,6 +23,7 @@ services:
     volumes:
       - crowdsec_conf:/etc/crowdsec
       - crowdsec_data:/var/lib/crowdsec/data
+      - geoip_data:/var/lib/crowdsec/data/geoip
       - type: volume
         source: npm_data
         target: /opt/npmplus/nginx
@@ -31,7 +33,7 @@ services:
     environment:
       - TZ=America/New_York
       - USE_WAL=true
-      - COLLECTIONS=ZoeyVid/npmplus
+      - COLLECTIONS=ZoeyVid/npmplus crowdsecurity/appsec-virtual-patching
 
   cloudflare-ddns:
     container_name: cloudflare-ddns
@@ -44,6 +46,18 @@ services:
     volumes:
       - /docker/proxy/cloudflare_ddns/config.json:/config.json
     restart: unless-stopped
+
+  geoipupdate:
+    image: ghcr.io/maxmind/geoipupdate:latest
+    container_name: geoipupdate
+    restart: unless-stopped
+    environment:
+      - GEOIPUPDATE_ACCOUNT_ID=${GEOIP_ACCOUNT_ID}
+      - GEOIPUPDATE_LICENSE_KEY=${GEOIP_LICENSE_KEY}
+      - GEOIPUPDATE_EDITION_IDS=GeoLite2-City GeoLite2-ASN
+      - GEOIPUPDATE_FREQUENCY=24 # Check for updates every 24 hours
+    volumes:
+      - geoip_data:/usr/share/GeoIP
 
 networks:
   default:
@@ -59,3 +73,5 @@ volumes:
     external: true
   crowdsec_data:
     external: true
+  geoip_data:
+    external: false
