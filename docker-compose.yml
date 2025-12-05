@@ -13,9 +13,9 @@ services:
         max-size: "50m"
         max-file: "5"
     volumes:
-      - npm_data:/data
-      - npm_certs:/etc/letsencrypt
-      - geoip_data:/opt/npmplus/goaccess/geoip
+      - /var/lib/docker_data/npmplus/data:/data
+      - /var/lib/docker_data/npmplus/certs:/etc/letsencrypt
+      - /var/lib/docker_data/geoip:/opt/npmplus/goaccess/geoip
     environment:
       - TZ=America/New_York
       - ACME_EMAIL=admin@streametz.com
@@ -44,20 +44,15 @@ services:
         max-size: "50m"
         max-file: "5"
     volumes:
-      - crowdsec_conf:/etc/crowdsec
-      - crowdsec_data:/var/lib/crowdsec/data
-      - geoip_data:/var/lib/crowdsec/data/geoip
+      - /var/lib/docker_data/crowdsec/config:/etc/crowdsec
+      - /var/lib/docker_data/crowdsec/data:/var/lib/crowdsec/data
+      - /var/lib/docker_data/geoip:/var/lib/crowdsec/data/geoip
+      - /var/lib/docker_data/npmplus/data/nginx:/opt/npmplus/nginx:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - type: volume
-        source: npm_data
-        target: /opt/npmplus/nginx
-        volume:
-          subpath: nginx
-        read_only: true
     environment:
       - TZ=America/New_York
       - USE_WAL=true
-      - COLLECTIONS=ZoeyVid/npmplus crowdsecurity/appsec-virtual-patching crowdsecurity/appsec-generic-rules crowdsecurity/http-cve crowdsecurity/whitelist-good-actors gauth-fr/immich crowdsecurity/nextcloud Dominic-Wagner/vaultwarden corvese/apache-guacamole LePresidente/overseerr
+      - COLLECTIONS=${CROWDSEC_COLLECTIONS}
     healthcheck:
       test: ["CMD", "cscli", "lapi", "status"]
       interval: 30s
@@ -78,7 +73,7 @@ services:
       - PUID=1000
       - PGID=1000
     volumes:
-      - /docker/proxy/cloudflare_ddns/config.json:/config.json
+      - /var/lib/docker_data/cloudflare_ddns/config.json:/config.json
     restart: unless-stopped
 
   geoipupdate:
@@ -97,21 +92,12 @@ services:
       - GEOIPUPDATE_FREQUENCY=24
       - TZ=America/New_York
     volumes:
-      - geoip_data:/usr/share/GeoIP
+      - /var/lib/docker_data/geoip:/usr/share/GeoIP
 
 networks:
   default:
     external: true
     name: proxy
-
-volumes:
-  npm_certs:
-    external: true
-  npm_data:
-    external: true
-  crowdsec_conf:
-    external: true
-  crowdsec_data:
     external: true
   geoip_data:
     external: false
