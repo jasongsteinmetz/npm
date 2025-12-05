@@ -96,8 +96,5 @@ services:
 
 networks:
   default:
-    external: true
     name: proxy
     external: true
-  geoip_data:
-    external: false
