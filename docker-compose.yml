@@ -29,6 +29,16 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
+    labels:
+      - homepage.group=Management
+      - homepage.name=NPMPlus
+      - homepage.icon=nginx-proxy-manager.png
+      - homepage.href=https://admin.streametz.com # Or your actual admin URL
+      # WIDGET
+      - homepage.widget.type=nginxproxymanager
+      - homepage.widget.url=http://npmplus:81
+      - homepage.widget.username=readonly@streametz.com
+      - homepage.widget.password=${NPM_PASSWORD}
 
   crowdsec:
     container_name: crowdsec
@@ -58,6 +68,16 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
+    labels:
+      - homepage.group=Network
+      - homepage.name=CrowdSec
+      - homepage.icon=crowdsec.png
+      - homepage.href=https://app.crowdsec.net # Link to console
+      # WIDGET CONFIG
+      - homepage.widget.type=crowdsec
+      - homepage.widget.url=http://crowdsec:8080
+      - homepage.widget.username=${CROWDSEC_USER}
+      - homepage.widget.password=${CROWDSEC_PASS}
 
   cloudflare-ddns:
     container_name: cloudflare-ddns
