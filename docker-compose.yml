@@ -33,9 +33,9 @@ services:
       - homepage.group=Management
       - homepage.name=NPMPlus
       - homepage.icon=nginx-proxy-manager.png
-      - homepage.href=https://admin.streametz.com # Or your actual admin URL
+      - homepage.href=https://freckles:81
       # WIDGET
-      - homepage.widget.type=nginxproxymanager
+      - homepage.widget.type=npm
       - homepage.widget.url=http://npmplus:81
       - homepage.widget.username=readonly@streametz.com
       - homepage.widget.password=${NPM_PASSWORD}
