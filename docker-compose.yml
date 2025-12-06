@@ -30,7 +30,7 @@ services:
       timeout: 10s
       retries: 3
     labels:
-      - homepage.group=Management
+      - homepage.group=Network
       - homepage.name=NPMPlus
       - homepage.icon=nginx-proxy-manager.png
       - homepage.href=http://freckles:81
