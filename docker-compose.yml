@@ -33,7 +33,7 @@ services:
       - homepage.group=Management
       - homepage.name=NPMPlus
       - homepage.icon=nginx-proxy-manager.png
-      - homepage.href=https://freckles:81
+      - homepage.href=http://freckles:81
       # WIDGET
       - homepage.widget.type=npm
       - homepage.widget.url=http://npmplus:81
@@ -72,7 +72,6 @@ services:
       - homepage.group=Network
       - homepage.name=CrowdSec
       - homepage.icon=crowdsec.png
-      - homepage.href=https://app.crowdsec.net # Link to console
       # WIDGET CONFIG
       - homepage.widget.type=crowdsec
       - homepage.widget.url=http://crowdsec:8080
