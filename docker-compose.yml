@@ -78,8 +78,8 @@ services:
       # WIDGET CONFIG
       - homepage.widget.type=crowdsec
       - homepage.widget.url=http://crowdsec:8080
-      - homepage.widget.username:${HOMEPAGE_CROWDSEC_LOGIN}
-      - homepage.widget.password:${HOMEPAGE_CROWDSEC_PASSWORD}
+      - homepage.widget.username:homepage-machine
+      - homepage.widget.password:op9VFvtPrY00TN6uhrvAe1hHz2BiML9hEAT2VPSb0yN15TRzwIVglu9azbFAu0yw
 
   cloudflare-ddns:
     container_name: cloudflare-ddns
