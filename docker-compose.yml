@@ -78,7 +78,7 @@ services:
       # WIDGET CONFIG
       - homepage.widget.type=customapi
       - homepage.widget.url=http://crowdsec:8080/v1/decisions
-      - homepage.widget.headers={"X-Api-Key":"@{CROWDSEC_LAPI_KEY}"}
+      - homepage.widget.headers={"X-Api-Key":"${CROWDSEC_LAPI_KEY}"}
       - homepage.widget.mappings=[{"field":"","label":"Bans","format":"length"}]
 
   cloudflare-ddns:
