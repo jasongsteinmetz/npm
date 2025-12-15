@@ -1,4 +1,4 @@
-ameservices:
+services:
   npmplus:
     container_name: npmplus
     image: docker.io/zoeyvid/npmplus:latest
