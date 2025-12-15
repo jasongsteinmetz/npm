@@ -78,7 +78,7 @@ services:
       # WIDGET CONFIG
       - homepage.widget.type=crowdsec
       - homepage.widget.url=http://crowdsec:8080
-      - homepage.widget.key=${CROWDSEC_LAPI_KEY}
+      - homepage.widget.key=Gf2IzC31wNCgk8BZAXq+6AxogoQ11mdO0NvJhXf+hRs
 
   cloudflare-ddns:
     container_name: cloudflare-ddns
