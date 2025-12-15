@@ -1,4 +1,4 @@
-services:
+ameservices:
   npmplus:
     container_name: npmplus
     image: docker.io/zoeyvid/npmplus:latest
@@ -78,7 +78,8 @@ services:
       # WIDGET CONFIG
       - homepage.widget.type=crowdsec
       - homepage.widget.url=http://crowdsec:8080
-      - homepage.widget.key=12345678901234567890123456789012
+      - homepage.widget.username:${HOMEPAGE_CROWDSEC_LOGIN}
+      - homepage.widget.password:${HOMEPAGE_CROWDSEC_PASSWORD}
 
   cloudflare-ddns:
     container_name: cloudflare-ddns
