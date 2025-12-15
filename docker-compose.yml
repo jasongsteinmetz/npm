@@ -36,7 +36,7 @@ services:
       - homepage.href=http://freckles:81
       # WIDGET
       - homepage.widget.type=npm
-      - homepage.widget.url=http://npmplus:81
+      - homepage.widget.url=https://npmplus:81
       - homepage.widget.username=readonly@streametz.com
       - homepage.widget.password=${NPM_PASSWORD}
 
