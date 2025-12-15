@@ -76,10 +76,10 @@ services:
       - homepage.name=CrowdSec
       - homepage.icon=crowdsec.png
       # WIDGET CONFIG
-      - homepage.widget.type=crowdsec
-      - homepage.widget.url=http://crowdsec:8080
-      - homepage.widget.username:homepage-machine
-      - homepage.widget.password:op9VFvtPrY00TN6uhrvAe1hHz2BiML9hEAT2VPSb0yN15TRzwIVglu9azbFAu0yw
+      - homepage.widget.type=customapi
+      - homepage.widget.url=http://crowdsec:8080/v1/decisions
+      - homepage.widget.headers={"X-Api-Key":"@{CROWDSEC_LAPI_KEY}"}
+      - homepage.widget.mappings=[{"field":"","label":"Bans","format":"length"}]
 
   cloudflare-ddns:
     container_name: cloudflare-ddns
