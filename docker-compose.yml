@@ -61,6 +61,7 @@ services:
       - /var/lib/docker_data/crowdsec/data:/var/lib/crowdsec/data
       - /var/lib/docker_data/geoip:/var/lib/crowdsec/data/geoip
       - /var/lib/docker_data/npmplus/data/nginx:/opt/npmplus/nginx:ro
+      - /var/lib/docker_data/plex/config/Library/Application Support/Plex Media Server/Logs:/var/log/plex:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
     environment:
       - TZ=America/New_York
