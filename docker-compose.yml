@@ -82,23 +82,6 @@ services:
       - homepage.widget.username=homepage
       - homepage.widget.password=24PiowJ1yE3iSy9Mts66sotXP32cEEiRScd4G1WGeHOFJYKEkvHv4vjWY5mQiMNF
 
-  cloudflare-ddns:
-    container_name: cloudflare-ddns
-    image: timothyjmiller/cloudflare-ddns:latest
-    security_opt:
-      - no-new-privileges:true
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "10m"
-        max-file: "3"
-    environment:
-      - PUID=1000
-      - PGID=1000
-    volumes:
-      - /var/lib/docker_data/cloudflare_ddns/config.json:/config.json
-    restart: unless-stopped
-
   geoipupdate:
     image: ghcr.io/maxmind/geoipupdate:v7.0
     container_name: geoipupdate
