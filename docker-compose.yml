@@ -20,6 +20,9 @@ services:
       - TZ=America/New_York
       - ACME_EMAIL=admin@streametz.com
       - GOA=true
+    networks:
+      proxy:
+        ipv4_address: 172.25.0.2
     ports:
       - '80:80'
       - '81:81'
