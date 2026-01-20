@@ -22,7 +22,7 @@ services:
       - GOA=true
     networks:
       default:
-        ipv4_address: 172.25.0.2
+        ipv4_address: 172.25.0.50
     ports:
       - '80:80'
       - '81:81'
