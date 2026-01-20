@@ -21,7 +21,7 @@ services:
       - ACME_EMAIL=admin@streametz.com
       - GOA=true
     networks:
-      proxy:
+      default:
         ipv4_address: 172.25.0.2
     ports:
       - '80:80'
