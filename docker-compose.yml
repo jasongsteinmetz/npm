@@ -14,7 +14,7 @@ services:
         max-file: "5"
     volumes:
       - /var/lib/docker_data/npmplus/data:/data
-      - /var/lib/docker_data/npmplus/certs:/etc/letsencrypt
+      # - /var/lib/docker_data/npmplus/certs:/etc/letsencrypt
       - /var/lib/docker_data/geoip:/opt/npmplus/goaccess/geoip
     environment:
       - TZ=America/New_York
