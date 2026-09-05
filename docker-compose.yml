@@ -71,6 +71,7 @@ services:
       - TZ=America/New_York
       - USE_WAL=true
       - COLLECTIONS=${CROWDSEC_COLLECTIONS}
+      - DISABLE_ONLINE_API=true
     ports:
       - '8080:8080'
     healthcheck:
